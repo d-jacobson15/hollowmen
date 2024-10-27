@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annotated Poem: [Title of the Poem]</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #285c3c;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .close-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #285c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #285c3c;
+        }
+        .content-box {
+            display: none;
+            background-color: #fffae0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+        .active-content {
+            display: block;
+        }
+        .poem-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .poem {
+            flex: 0.5;
+            padding-right: 20px;
+        }
+        .popup {
+            position: absolute;
+            background-color: #fffae0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 100;
+        }
+        .line {
+            cursor: pointer;
+            padding: 8px;
+            margin: 5px 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            position: relative;
+        }
+        .line:hover {
+            background-color: #f0f0f0;
+            color: #285c3c;
+        }
+        .active-line {
+            background-color: #fffae0;
+            color: #285c3c;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function showAnnotation(id, lineElement) {
+            var annotationText = document.getElementById(id).innerHTML;
+            var rect = lineElement.getBoundingClientRect();
+            var popup = document.getElementById('annotation-popup');
+            popup.innerHTML = annotationText;
+            popup.style.top = rect.top + window.scrollY + 'px';
+            var poemContainer = document.querySelector('.poem');
+            popup.style.left = poemContainer.offsetLeft + poemContainer.offsetWidth + 20 + 'px';
+            popup.style.display = 'block';
+            var lines = document.getElementsByClassName('line');
+            for (var i = 0; i < lines.length; i++) {
+                lines[i].classList.remove('active-line');
+            }
+            lineElement.classList.add('active-line');
+        }
+
+        function closeContentBox() {
+            var contentBoxes = document.getElementsByClassName('content-box');
+            for (var i = 0; i < contentBoxes.length; i++) {
+                contentBoxes[i].style.display = 'none';
+            }
+        }
+
+        function showContentBox(id) {
+            var contentBoxes = document.getElementsByClassName('content-box');
+            for (var i = 0; i < contentBoxes.length; i++) {
+                contentBoxes[i].style.display = 'none';
+            }
+            document.getElementById(id).style.display = 'block';
+        }
+
+        document.addEventListener('click', function(event) {
+            var popup = document.getElementById('annotation-popup');
+            if (!event.target.classList.contains('line')) {
+                popup.style.display = 'none';
+            }
+        });
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <h1>The Hollow Men<br>T.S. Eliot | 1925</h1>
+    <p style="text-align: center; font-style: italic; font-size: 12px; margin-top: 5px;">Annotated by D. Jacobson</p>
+
+    <!-- Buttons Section -->
+    <div class="buttons">
+        <button class="button" onclick="showContentBox('summary')">Summary</button>
+        <button class="button" onclick="showContentBox('context')">Context</button>
+        <button class="button" onclick="showContentBox('vocab')">Key Vocabulary</button>
+    </div>
+
+    <!-- Content Boxes -->
+    <div id="summary" class="content-box">
+        <button class="close-button" onclick="closeContentBox()">X</button>
+        <h2>Summary</h2>
+        <p>[Insert summary of the poem here]</p>
+    </div>
+
+    <div id="vocab" class="content-box">
+        <button class="close-button" onclick="closeContentBox()">X</button>
+        <h2>Vocabulary</h2>
+        <p>[Insert key vocabulary here]</p>
+    </div>
+
+    <div id="context" class="content-box">
+        <button class="close-button" onclick="closeContentBox()">X</button>
+        <h2>Context</h2>
+        <p>[Insert historical and literary context here]</p>
+    </div>
+
+    <!-- Poem and Annotations Layout -->
+    <div class="poem-container">
+        <!-- Poem on the left -->
+        <div class="poem">
+          <p class="line" onclick="showAnnotation('line1', this)"><em>Mistah Kurtz—he dead</em></p>
+<p class="line" onclick="showAnnotation('line2', this)"><em>A penny for the Old Guy</em></p>
+
+<br><br> <!-- Section I -->
+<p class="line" onclick="showAnnotation('line3', this)"><strong>I</strong></p>
+<p class="line" onclick="showAnnotation('line4', this)">We are the hollow men</p>
+<p class="line" onclick="showAnnotation('line5', this)">We are the stuffed men</p>
+<p class="line" onclick="showAnnotation('line6', this)">Leaning together</p>
+<p class="line" onclick="showAnnotation('line7', this)">Headpiece filled with straw. Alas!</p>
+<p class="line" onclick="showAnnotation('line8', this)">Our dried voices, when</p>
+<p class="line" onclick="showAnnotation('line9', this)">We whisper together</p>
+<p class="line" onclick="showAnnotation('line10', this)">Are quiet and meaningless</p>
+<p class="line" onclick="showAnnotation('line11', this)">As wind in dry grass</p>
+<p class="line" onclick="showAnnotation('line12', this)">Or rats' feet over broken glass</p>
+<p class="line" onclick="showAnnotation('line13', this)">In our dry cellar</p>
+
+<p class="line" onclick="showAnnotation('line14', this)">Shape without form, shade without colour,</p>
+<p class="line" onclick="showAnnotation('line15', this)">Paralysed force, gesture without motion;</p>
+
+<p class="line" onclick="showAnnotation('line16', this)">Those who have crossed</p>
+<p class="line" onclick="showAnnotation('line17', this)">With direct eyes, to death's other Kingdom</p>
+<p class="line" onclick="showAnnotation('line18', this)">Remember us—if at all—not as lost</p>
+<p class="line" onclick="showAnnotation('line19', this)">Violent souls, but only</p>
+<p class="line" onclick="showAnnotation('line20', this)">As the hollow men</p>
+<p class="line" onclick="showAnnotation('line21', this)">The stuffed men.</p>
+
+<br><br> <!-- Section II -->
+<p class="line" onclick="showAnnotation('line22', this)"><strong>II</strong></p>
+<p class="line" onclick="showAnnotation('line23', this)">Eyes I dare not meet in dreams</p>
+<p class="line" onclick="showAnnotation('line24', this)">In death's dream kingdom</p>
+<p class="line" onclick="showAnnotation('line25', this)">These do not appear:</p>
+<p class="line" onclick="showAnnotation('line26', this)">There, the eyes are</p>
+<p class="line" onclick="showAnnotation('line27', this)">Sunlight on a broken column</p>
+<p class="line" onclick="showAnnotation('line28', this)">There, is a tree swinging</p>
+<p class="line" onclick="showAnnotation('line29', this)">And voices are</p>
+<p class="line" onclick="showAnnotation('line30', this)">In the wind's singing</p>
+<p class="line" onclick="showAnnotation('line31', this)">More distant and more solemn</p>
+<p class="line" onclick="showAnnotation('line32', this)">Than a fading star.</p>
+
+<p class="line" onclick="showAnnotation('line33', this)">Let me be no nearer</p>
+<p class="line" onclick="showAnnotation('line34', this)">In death's dream kingdom</p>
+<p class="line" onclick="showAnnotation('line35', this)">Let me also wear</p>
+<p class="line" onclick="showAnnotation('line36', this)">Such deliberate disguises</p>
+<p class="line" onclick="showAnnotation('line37', this)">Rat's coat, crowskin, crossed staves</p>
+<p class="line" onclick="showAnnotation('line38', this)">In a field</p>
+<p class="line" onclick="showAnnotation('line39', this)">Behaving as the wind behaves</p>
+<p class="line" onclick="showAnnotation('line40', this)">No nearer—</p>
+
+<p class="line" onclick="showAnnotation('line41', this)">Not that final meeting</p>
+<p class="line" onclick="showAnnotation('line42', this)">In the twilight kingdom</p>
+
+<br><br> <!-- Section III -->
+<p class="line" onclick="showAnnotation('line43', this)"><strong>III</strong></p>
+<p class="line" onclick="showAnnotation('line44', this)">This is the dead land</p>
+<p class="line" onclick="showAnnotation('line45', this)">This is cactus land</p>
+<p class="line" onclick="showAnnotation('line46', this)">Here the stone images</p>
+<p class="line" onclick="showAnnotation('line47', this)">Are raised, here they receive</p>
+<p class="line" onclick="showAnnotation('line48', this)">The supplication of a dead man's hand</p>
+<p class="line" onclick="showAnnotation('line49', this)">Under the twinkle of a fading star.</p>
+
+<p class="line" onclick="showAnnotation('line50', this)">Is it like this</p>
+<p class="line" onclick="showAnnotation('line51', this)">In death's other kingdom</p>
+<p class="line" onclick="showAnnotation('line52', this)">Waking alone</p>
+<p class="line" onclick="showAnnotation('line53', this)">At the hour when we are</p>
+<p class="line" onclick="showAnnotation('line54', this)">Trembling with tenderness</p>
+<p class="line" onclick="showAnnotation('line55', this)">Lips that would kiss</p>
+<p class="line" onclick="showAnnotation('line56', this)">Form prayers to broken stone.</p>
+
+<br><br> <!-- Section IV -->
+<p class="line" onclick="showAnnotation('line57', this)"><strong>IV</strong></p>
+<p class="line" onclick="showAnnotation('line58', this)">The eyes are not here</p>
+<p class="line" onclick="showAnnotation('line59', this)">There are no eyes here</p>
+<p class="line" onclick="showAnnotation('line60', this)">In this valley of dying stars</p>
+<p class="line" onclick="showAnnotation('line61', this)">In this hollow valley</p>
+<p class="line" onclick="showAnnotation('line62', this)">This broken jaw of our lost kingdoms</p>
+
+<p class="line" onclick="showAnnotation('line63', this)">In this last of meeting places</p>
+<p class="line" onclick="showAnnotation('line64', this)">We grope together</p>
+<p class="line" onclick="showAnnotation('line65', this)">And avoid speech</p>
+<p class="line" onclick="showAnnotation('line66', this)">Gathered on this beach of the tumid river</p>
+
+<p class="line" onclick="showAnnotation('line67', this)">Sightless, unless</p>
+<p class="line" onclick="showAnnotation('line68', this)">The eyes reappear</p>
+<p class="line" onclick="showAnnotation('line69', this)">As the perpetual star</p>
+<p class="line" onclick="showAnnotation('line70', this)">Multifoliate rose</p>
+<p class="line" onclick="showAnnotation('line71', this)">Of death's twilight kingdom</p>
+<p class="line" onclick="showAnnotation('line72', this)">The hope only</p>
+<p class="line" onclick="showAnnotation('line73', this)">Of empty men.</p>
+
+<br><br> <!-- Section V -->
+<p class="line" onclick="showAnnotation('line74', this)"><strong>V</strong></p>
+<p class="line" onclick="showAnnotation('line75', this)">Here we go round the prickly pear</p>
+<p class="line" onclick="showAnnotation('line76', this)">Prickly pear prickly pear</p>
+<p class="line" onclick="showAnnotation('line77', this)">Here we go round the prickly pear</p>
+<p class="line" onclick="showAnnotation('line78', this)">At five o'clock in the morning.</p>
+
+<p class="line" onclick="showAnnotation('line79', this)">Between the idea</p>
+<p class="line" onclick="showAnnotation('line80', this)">And the reality</p>
+<p class="line" onclick="showAnnotation('line81', this)">Between the motion</p>
+<p class="line" onclick="showAnnotation('line82', this)">And the act</p>
+<p class="line" onclick="showAnnotation('line83', this)">Falls the Shadow</p>
+<p class="line" onclick="showAnnotation('line84', this)" style="text-align: right;">For Thine is the Kingdom</p>
+
+<p class="line" onclick="showAnnotation('line85', this)">Between the conception</p>
+<p class="line" onclick="showAnnotation('line86', this)">And the creation</p>
+<p class="line" onclick="showAnnotation('line87', this)">Between the emotion</p>
+<p class="line" onclick="showAnnotation('line88', this)">And the response</p>
+<p class="line" onclick="showAnnotation('line89', this)">Falls the Shadow</p>
+<p class="line" onclick="showAnnotation('line90', this)" style="text-align: right;">Life is very long</p>
+
+<p class="line" onclick="showAnnotation('line91', this)">Between the desire</p>
+<p class="line" onclick="showAnnotation('line92', this)">And the spasm</p>
+<p class="line" onclick="showAnnotation('line93', this)">Between the potency</p>
+<p class="line" onclick="showAnnotation('line94', this)">And the existence</p>
+<p class="line" onclick="showAnnotation('line95', this)">Between the essence</p>
+<p class="line" onclick="showAnnotation('line96', this)">And the descent</p>
+<p class="line" onclick="showAnnotation('line97', this)">Falls the Shadow</p>
+<p class="line" onclick="showAnnotation('line98', this)" style="text-align: right;">For Thine is the Kingdom</p>
+
+<p class="line" onclick="showAnnotation('line99', this)">For Thine is</p>
+<p class="line" onclick="showAnnotation('line100', this)">Life is</p>
+<p class="line" onclick="showAnnotation('line101', this)">For Thine is the</p>
+
+<p class="line" onclick="showAnnotation('line102', this)">This is the way the world ends</p>
+<p class="line" onclick="showAnnotation('line103', this)">This is the way the world ends</p>
+<p class="line" onclick="showAnnotation('line104', this)">This is the way the world ends</p>
+<p class="line" onclick="showAnnotation('line105', this)">Not with a bang but a whimper.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Annotations for each line -->
+<div id="line1" style="display:none;">
+    <p>[Annotation for Line 1]</p>
+</div>
+<div id="line2" style="display:none;">
+    <p>[Annotation for Line 2]</p>
+</div>
+<div id="line3" style="display:none;">
+    <p>[Annotation for Line 3]</p>
+</div>
+<div id="line4" style="display:none;">
+    <p>[Annotation for Line 4]</p>
+</div>
+<div id="line5" style="display:none;">
+    <p>[Annotation for Line 5]</p>
+</div>
+<div id="line6" style="display:none;">
+    <p>[Annotation for Line 6]</p>
+</div>
+<div id="line7" style="display:none;">
+    <p>[Annotation for Line 7]</p>
+</div>
+<div id="line8" style="display:none;">
+    <p>[Annotation for Line 8]</p>
+</div>
+<div id="line9" style="display:none;">
+    <p>[Annotation for Line 9]</p>
+</div>
+<div id="line10" style="display:none;">
+    <p>[Annotation for Line 10]</p>
+</div>
+<div id="line11" style="display:none;">
+    <p>[Annotation for Line 11]</p>
+</div>
+<div id="line12" style="display:none;">
+    <p>[Annotation for Line 12]</p>
+</div>
+<div id="line13" style="display:none;">
+    <p>[Annotation for Line 13]</p>
+</div>
+<div id="line14" style="display:none;">
+    <p>[Annotation for Line 14]</p>
+</div>
+<div id="line15" style="display:none;">
+    <p>[Annotation for Line 15]</p>
+</div>
+<div id="line16" style="display:none;">
+    <p>[Annotation for Line 16]</p>
+</div>
+<div id="line17" style="display:none;">
+    <p>[Annotation for Line 17]</p>
+</div>
+<div id="line18" style="display:none;">
+    <p>[Annotation for Line 18]</p>
+</div>
+<div id="line19" style="display:none;">
+    <p>[Annotation for Line 19]</p>
+</div>
+<div id="line20" style="display:none;">
+    <p>[Annotation for Line 20]</p>
+</div>
+<div id="line21" style="display:none;">
+    <p>[Annotation for Line 21]</p>
+</div>
+<div id="line22" style="display:none;">
+    <p>[Annotation for Line 22]</p>
+</div>
+<div id="line23" style="display:none;">
+    <p>[Annotation for Line 23]</p>
+</div>
+<div id="line24" style="display:none;">
+    <p>[Annotation for Line 24]</p>
+</div>
+<div id="line25" style="display:none;">
+    <p>[Annotation for Line 25]</p>
+</div>
+<div id="line26" style="display:none;">
+    <p>[Annotation for Line 26]</p>
+</div>
+<div id="line27" style="display:none;">
+    <p>[Annotation for Line 27]</p>
+</div>
+<div id="line28" style="display:none;">
+    <p>[Annotation for Line 28]</p>
+</div>
+<div id="line29" style="display:none;">
+    <p>[Annotation for Line 29]</p>
+</div>
+<div id="line30" style="display:none;">
+    <p>[Annotation for Line 30]</p>
+</div>
+<div id="line31" style="display:none;">
+    <p>[Annotation for Line 31]</p>
+</div>
+<div id="line32" style="display:none;">
+    <p>[Annotation for Line 32]</p>
+</div>
+<div id="line33" style="display:none;">
+    <p>[Annotation for Line 33]</p>
+</div>
+<div id="line34" style="display:none;">
+    <p>[Annotation for Line 34]</p>
+</div>
+<div id="line35" style="display:none;">
+    <p>[Annotation for Line 35]</p>
+</div>
+<div id="line36" style="display:none;">
+    <p>[Annotation for Line 36]</p>
+</div>
+<div id="line37" style="display:none;">
+    <p>[Annotation for Line 37]</p>
+</div>
+<div id="line38" style="display:none;">
+    <p>[Annotation for Line 38]</p>
+</div>
+<div id="line39" style="display:none;">
+    <p>[Annotation for Line 39]</p>
+</div>
+<div id="line40" style="display:none;">
+    <p>[Annotation for Line 40]</p>
+</div>
+<div id="line41" style="display:none;">
+    <p>[Annotation for Line 41]</p>
+</div>
+<div id="line42" style="display:none;">
+    <p>[Annotation for Line 42]</p>
+</div>
+<div id="line43" style="display:none;">
+    <p>[Annotation for Line 43]</p>
+</div>
+<div id="line44" style="display:none;">
+    <p>[Annotation for Line 44]</p>
+</div>
+<div id="line45" style="display:none;">
+    <p>[Annotation for Line 45]</p>
+</div>
+<div id="line46" style="display:none;">
+    <p>[Annotation for Line 46]</p>
+</div>
+<div id="line47" style="display:none;">
+    <p>[Annotation for Line 47]</p>
+</div>
+<div id="line48" style="display:none;">
+    <p>[Annotation for Line 48]</p>
+</div>
+<div id="line49" style="display:none;">
+    <p>[Annotation for Line 49]</p>
+</div>
+<div id="line50" style="display:none;">
+    <p>[Annotation for Line 50]</p>
+</div>
+<div id="line51" style="display:none;">
+    <p>[Annotation for Line 51]</p>
+</div>
+<div id="line52" style="display:none;">
+    <p>[Annotation for Line 52]</p>
+</div>
+<div id="line53" style="display:none;">
+    <p>[Annotation for Line 53]</p>
+</div>
+<div id="line54" style="display:none;">
+    <p>[Annotation for Line 54]</p>
+</div>
+<div id="line55" style="display:none;">
+    <p>[Annotation for Line 55]</p>
+</div>
+<div id="line56" style="display:none;">
+    <p>[Annotation for Line 56]</p>
+</div>
+<div id="line57" style="display:none;">
+    <p>[Annotation for Line 57]</p>
+</div>
+<div id="line58" style="display:none;">
+    <p>[Annotation for Line 58]</p>
+</div>
+<div id="line59" style="display:none;">
+    <p>[Annotation for Line 59]</p>
+</div>
+<div id="line60" style="display:none;">
+    <p>[Annotation for Line 60]</p>
+</div>
+<div id="line61" style="display:none;">
+    <p>[Annotation for Line 61]</p>
+</div>
+<div id="line62" style="display:none;">
+    <p>[Annotation for Line 62]</p>
+</div>
+<div id="line63" style="display:none;">
+    <p>[Annotation for Line 63]</p>
+</div>
+<div id="line64" style="display:none;">
+    <p>[Annotation for Line 64]</p>
+</div>
+<div id="line65" style="display:none;">
+    <p>[Annotation for Line 65]</p>
+</div>
+<div id="line66" style="display:none;">
+    <p>[Annotation for Line 66]</p>
+</div>
+<div id="line67" style="display:none;">
+    <p>[Annotation for Line 67]</p>
+</div>
+<div id="line68" style="display:none;">
+    <p>[Annotation for Line 68]</p>
+</div>
+<div id="line69" style="display:none;">
+    <p>[Annotation for Line 69]</p>
+</div>
+<div id="line70" style="display:none;">
+    <p>[Annotation for Line 70]</p>
+</div>
+<div id="line71" style="display:none;">
+    <p>[Annotation for Line 71]</p>
+</div>
+<div id="line72" style="display:none;">
+    <p>[Annotation for Line 72]</p>
+</div>
+<div id="line73" style="display:none;">
+    <p>[Annotation for Line 73]</p>
+</div>
+<div id="line74" style="display:none;">
+    <p>[Annotation for Line 74]</p>
+</div>
+<div id="line75" style="display:none;">
+    <p>[Annotation for Line 75]</p>
+</div>
+<div id="line76" style="display:none;">
+    <p>[Annotation for Line 76]</p>
+</div>
+<div id="line77" style="display:none;">
+    <p>[Annotation for Line 77]</p>
+</div>
+<div id="line78" style="display:none;">
+    <p>[Annotation for Line 78]</p>
+</div>
+
+<!-- Popup for annotations -->
+<div id="annotation-popup" class="popup"></div>
+
+</body>
+</html>
